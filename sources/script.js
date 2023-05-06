@@ -40,7 +40,7 @@ function playRound(playerSelection, computerSelection) {
 }
 
 function game() {
-  for (let round = 0; round < 5; round++) {
+  for (let round = 1; round < 5; round++) {
     let playerSelection = playerChoice();
     if (playerSelection === null) {
       return;
