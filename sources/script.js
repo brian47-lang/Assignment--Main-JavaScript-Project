@@ -3,27 +3,32 @@ let playerWins = 0;
 let computerWins = 0;
 
 function playerChoice() {
-  let playerInput = prompt("Enter your play");
+  let playerInput = prompt("Let's play ROCK, PAPER, SCISSORS");
 
-  while (!playArray.includes(playerInput) && playerInput !== null) {
-    playerInput = prompt("Invalid input! Please try again.");
+  while (playerInput !== null) {
+    playerInput = playerInput.trim().toLowerCase();
+    if (playArray.includes(playerInput)) {
+      return playerInput;
+    }
+    if (playerInput === "") {
+      console.log("Please enter a valid input!");
+    } else {
+      console.log("Invalid input! Please try again.");
+    }
+    playerInput = prompt("Let's play ROCK, PAPER, SCISSORS");
   }
 
   // If the user clicked cancel, return null
-  if (playerInput === null) {
-    console.log("Game cancelled");
-    return null;
-  }
-
-  return playerInput;
+  console.log("Game cancelled");
+  return null;
 }
-
 function computerPlay() {
   let i = Math.floor(Math.random() * playArray.length);
   return playArray[i];
 }
 
 function playRound(playerSelection, computerSelection) {
+
   if (
     (playerSelection === "rock" && computerSelection === "scissors") ||
     (playerSelection === "paper" && computerSelection === "rock") ||
@@ -40,17 +45,19 @@ function playRound(playerSelection, computerSelection) {
 }
 
 function game() {
-  for (let round = 1; round < 5; round++) {
+  for (let round = 1; round <= 5; round++) {
     let playerSelection = playerChoice();
     if (playerSelection === null) {
-      return;
+      break;
+      //Prevents counting rounds when null value is clicked mid-game//
     }
     let computerSelection = computerPlay();
     playRound(playerSelection, computerSelection);
+    console.log("Rounds played: " + round + " /5")
   }
   if (playerWins > computerWins) {
     console.log("Player wins the game!!");
-  } else {
+  } else if (playerWins < computerWins) {
     console.log("Computer wins the game!!");
   }
 }
